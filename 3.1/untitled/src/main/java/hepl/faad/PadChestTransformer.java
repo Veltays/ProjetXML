@@ -38,7 +38,9 @@ public class PadChestTransformer {
                     xmlWriter.EcritureDuXML(FinaleLine);
                 }
 
+
                 xmlWriter.EcrireBaliseFermanteElement("image");
+
             }
 
             xmlWriter.EcrireFinRacine();
