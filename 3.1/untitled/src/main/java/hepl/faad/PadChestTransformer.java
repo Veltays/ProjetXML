@@ -3,7 +3,14 @@ package hepl.faad;
 public class PadChestTransformer {
 
 
-    public void transformer(String csvPath, String xmlPath) {
+
+    public static void main(String[] args) {
+        String FileNotXmlPath = "untitled/src/main/resources/PADCHEST_chest_x_ray_images_labels_160K_01.02.19.csv";
+        String FileXmlPath    = "untitled/src/main/resources/PADCHEST.xml";
+
+        transformer(FileNotXmlPath, FileXmlPath);
+    }
+    public static void transformer(String csvPath, String xmlPath) {
         try {
             CsvReader csvReader = new CsvReader(csvPath);
             XmlWriter xmlWriter = new XmlWriter(xmlPath);
@@ -19,14 +26,19 @@ public class PadChestTransformer {
             while ((ligne = csvReader.readCsvRecord()) != null) {
                 String[] ParsedLine = CsvRecordParser.ParseLine(ligne);
 
-                xmlWriter.EcrireBaliseEntranteElement(ParsedLine[0]);
+                String[]  ParsedLienWithoutExluded = csvReader.DeleteExcludedDataFromData(ParsedLine);
 
-                for (int i = 1; i < ParsedLine.length; i++) {
-                    FinaleLine = "\t\t<" + Header[i] + ">" + ParsedLine[i] + "</" + Header[i] + ">" + "\n";
+                xmlWriter.EcrireBaliseEntranteElementAvecAttribut("image",ParsedLienWithoutExluded[0]);
+
+
+
+                for (int i = 1; i < ParsedLienWithoutExluded.length; i++) {
+
+                    FinaleLine = xmlWriter.formatLineForXml(ParsedLienWithoutExluded[i],Header[i]);
                     xmlWriter.EcritureDuXML(FinaleLine);
                 }
 
-                xmlWriter.EcrireBaliseFermanteElement();
+                xmlWriter.EcrireBaliseFermanteElement("image");
             }
 
             xmlWriter.EcrireFinRacine();
