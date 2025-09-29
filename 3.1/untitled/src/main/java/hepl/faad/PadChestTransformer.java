@@ -35,6 +35,8 @@ public class PadChestTransformer {
                 for (int i = 1; i < ParsedLienWithoutExluded.length; i++) {
 
                     FinaleLine = xmlWriter.formatLineForXml(ParsedLienWithoutExluded[i],Header[i]);
+                    if(FinaleLine == "")
+                        continue;
                     xmlWriter.EcritureDuXML(FinaleLine);
                 }
 

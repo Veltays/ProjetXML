@@ -82,7 +82,6 @@ public class CsvReader {
         return br;
     }
 
-
     public static String[] DeleteExcludedDataFromHeader(String[] Allheader){
 
         ArrayList<String> HeaderWithExcluded = new ArrayList<>();
@@ -117,8 +116,6 @@ public class CsvReader {
 
         return DataWithExcluded.toArray(new String[0]);
     }
-
-
 
 
     public void close() throws IOException {
